@@ -1,0 +1,29 @@
+
+
+
+.login_container {
+	padding: 40px;
+	max-width: 480px;
+	margin: 0 auto;
+
+	background-color: white;
+	border-radius: 7px;
+	height: 480px;
+} 
+.create_new_acc{
+	color: rgb(232, 123, 7);
+	text-decoration: none;
+
+}
+.create_new_acc:hover{
+text-decoration: underline;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+label {
+	margin-bottom: 5px;
+} 
