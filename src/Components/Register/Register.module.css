@@ -1,0 +1,103 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.signupContainer {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 30px 25px;
+  padding-left: 35px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+/* Left-side grey to light-blue gradient */
+.signupContainer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 6px;
+  background: linear-gradient(to bottom, #cccccc, #add8e6);
+  border-radius: 10px 0 0 10px;
+}
+
+.signupContainer h2 {
+  margin-bottom: 10px;
+}
+
+.signupContainer p {
+  font-size: 14px;
+  margin: 5px 0 15px;
+}
+
+.signupContainer a {
+  color: #ff6b00;
+  text-decoration: none;
+}
+
+.signinLink:hover {
+  text-decoration: underline;
+}
+
+.signupForm input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.nameFields {
+  display: flex;
+  gap: 10px;
+}
+
+.nameFields input {
+  flex: 1;
+}
+
+.policyText {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.policyText a {
+  color: #ff6b00;
+  text-decoration: underline;
+}
+
+.signupForm button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4e6cff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.signupForm button:hover {
+  background-color: #3d5ce4;
+}
+
+.footerLink {
+  color: #f9a825;
+  font-weight: bold;
+  margin-top: 15px;
+}
