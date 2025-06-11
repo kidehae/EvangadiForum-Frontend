@@ -1,17 +1,27 @@
-import { createContext, useEffect, useState }  from 'react';
-import Header from './Components/Header/Header'; // Adjust path to match your Header.jsx location
-import { BrowserRouter as Router } from 'react-router-dom'; // Required for Link in Header
-import { AppState } from './App'; // Required for context in Header
-import Footer from './Components/Footer/Footer';
+import React, { createContext, useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+// import Header from './Components/Header/Header';
+// import Footer from './Components/Footer/Footer';
+import Register from './Components/Register/Register';
+
 
 export const AppState = createContext();
+
 const App = () => {
+  const [user, setUser] = useState(null);
+
+  const handleLogout = () => {
+    setUser(null);
+    // Add any logout logic (e.g., localStorage.clear())
+  };
+
   return (
-    <Router> {/* Wrap in Router for Link functionality */}
-      <AppState.Provider value={{ user: null, setUser: () => {}, handleLogout: () => {} }}>
+    <Router>
+      <AppState.Provider value={{ user, setUser, handleLogout }}>
         <div>
-          <Header />
-          <Footer/>
+          {/* <Header /> */}
+          <Register />
+          {/* <Footer /> */}
         </div>
       </AppState.Provider>
     </Router>
