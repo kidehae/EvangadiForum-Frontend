@@ -1,0 +1,45 @@
+/* About.module.css */
+
+.aboutContainer {
+    width: 30%;
+    margin: 0 auto;
+  }
+  
+  .about-button {
+    display: block;
+    /* margin: 20px auto; */
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #ff7b00;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .about-button:hover {
+    background-color: #0056b3;
+  }
+  
+  a {
+    color: orangered;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+
+  .aboutContainer h2{
+    font-size: 36px;
+  color: rgb(75, 69, 111);
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  }
+
+  .aboutContainer p{
+    font-size: 15px;
+  font-weight: 400;
+  color: rgb(75, 69, 111);
+  margin-bottom: 15px;
+  }
