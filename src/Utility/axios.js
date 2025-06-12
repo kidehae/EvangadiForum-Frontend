@@ -9,5 +9,6 @@ axiosInstance.interceptors.request.use(config => {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
+  
 });
-export { axiosInstance };
+export {axiosInstance };
