@@ -1,3 +1,4 @@
+
 import  { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Auth/Auth";
@@ -152,6 +153,7 @@ const Register = () => {
       <p>
         <Link to="/signIn">Already have an account?</Link>
       </p>
+
     </div>
   );
 };
