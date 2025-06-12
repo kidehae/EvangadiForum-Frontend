@@ -1,9 +1,16 @@
-import React from 'react'
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import AnswerPage from './Pages/Answer/Answer';
 
-const App = () => {
+function App() {
   return (
-    <div>App</div>
-  )
+    <>
+    <AnswerPage/>
+    </>
+      // <Routes>
+      //   <Route path="/answer" element={<AnswerPage />} />
+      // </Routes>
+    
+  );
 }
 
-export default App
+export default App;
