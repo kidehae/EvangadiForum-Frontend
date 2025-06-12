@@ -1,0 +1,12 @@
+.button{
+  text-align: center;
+  justify-content: center;
+  background-color: rgba(59, 59, 211, 0.589);
+}
+
+
+.anserw{
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
