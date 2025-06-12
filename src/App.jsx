@@ -1,16 +1,11 @@
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AnswerPage from './Pages/Answer/Answer';
+import Router from "./Router";
 
 function App() {
   return (
-    <>
-    <AnswerPage/>
-    </>
-      // <Routes>
-      //   <Route path="/answer" element={<AnswerPage />} />
-      // </Routes>
-    
+    <div>
+      <Router />
+    </div>
   );
-}
+};
 
 export default App;

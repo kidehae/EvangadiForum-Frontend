@@ -1,18 +1,27 @@
-// axios.jsx
-import axios from 'axios';
+import axios from "axios";
 
-const instance = axios.create({
-  baseURL: 'http://localhost:2112',
-  withCredentials: true
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:2112", // Update this when deploying backend
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-// Add interceptor to include token
-instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token"); // adjust if you store it somewhere else
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-export default instance;
+export { axiosInstance };
+
+// === QUESTIONS API ===
+export const getAllQuestions = () => {
+  return axiosInstance.get("/api/question");
+};
+
+export const getQuestionById = (id) => {
+  return axiosInstance.get(`/api/question/${id}`);
+};
