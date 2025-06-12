@@ -1,6 +1,6 @@
 import Router from "./Router";
 
-const App = () => {
+function App() {
   return (
     <div>
       <Router />
