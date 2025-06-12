@@ -4,6 +4,7 @@ import Header from './Components/Header/Header'
 
 import About from './Components/About/About'
 import Register from './Components/Register/Register';
+import QuestionPage from './Pages/Question/QuestionPage';
 
 const App = () => {
 
@@ -15,6 +16,7 @@ const App = () => {
           <Header />
           <About/>
           <Register/>
+          <QuestionPage/>
           <Footer/>
         </div>
       

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import styles from "./Register.module.css";
-import axios from "../../axiosConfig";
+
 
 const Register = () => {
   const userNameDom = useRef();
