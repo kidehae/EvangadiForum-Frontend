@@ -20,7 +20,7 @@ function QuestionPage() {
     setSuccess('');
 
     try {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem("token");
       if (!token) {
         setError('No authentication token found. Please log in.');
         setLoading(false);
