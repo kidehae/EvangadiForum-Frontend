@@ -6,6 +6,9 @@ import QuestionList from "../../Components/QuestionList/QuestionList";
 import { Button, Spinner } from "react-bootstrap";
 import styles from "./Home.module.css";
 
+
+//  home page 
+
 const Home = () => {
   const [questions, setQuestions] = useState([]);
   const [allQuestions, setAllQuestions] = useState([]);
@@ -105,7 +108,6 @@ const Home = () => {
               ))
             )}
           </div>
-
         </div>
       </div>
     </div>
