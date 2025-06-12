@@ -1,18 +1,11 @@
-import React from 'react'
-import QuestionPage from './Pages/Question/QuestionPage'
-
-
-
-
-
+import Router from "./Router";
 
 const App = () => {
   return (
     <div>
-      
-    <QuestionPage/>
+      <Router />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
