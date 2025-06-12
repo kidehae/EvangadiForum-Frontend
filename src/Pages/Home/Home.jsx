@@ -16,7 +16,7 @@ const Home = () => {
   const [error, setError] = useState("");
   const [displayCount, setDisplayCount] = useState(5);
 
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,6 +49,7 @@ const Home = () => {
       setLoading(false);
     }
   };
+  
 
   const handleAskQuestion = () => {
     if (!user) {
@@ -90,6 +91,7 @@ const Home = () => {
           <h2 className={styles.questionsTitle}>Questions</h2>
           {error && <div className={styles.errorMessage}>{error}</div>}
           <div className={styles.questionsList}>
+
             {questions.length === 0 ? (
               <div className={styles.noQuestions}>
                 <p>No questions available</p>
