@@ -34,3 +34,6 @@ export const answersAPI = {
   postAnswer: (answerData) => axiosInstance.post("/api/answer", answerData),
 
 };
+
+
+export default axiosInstance;
