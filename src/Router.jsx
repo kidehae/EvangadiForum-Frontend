@@ -1,11 +1,15 @@
 import { Route, Routes } from "react-router-dom";
+
 import Layout from "./Components/Layout/Layout";
+
 import Home from "./Pages/Home/Home";
 import Landing from "./Pages/Landing/Landing";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 
+
 import QuestionPage from "./Pages/Question/QuestionPage";
 import PostAnswer from "./Pages/Answer/Answer";
+
 
 function Router() {
   return (
@@ -21,6 +25,7 @@ function Router() {
           </ProtectedRoute>
         }
       />
+
 
       <Route
         path="/postQuestion"
@@ -45,10 +50,12 @@ function Router() {
       />
 
       <Route
+
         path="/question/:questionId/answers"
         element={
           <ProtectedRoute>
             <Layout>
+
               <PostAnswer />
             </Layout>
           </ProtectedRoute>
@@ -56,6 +63,7 @@ function Router() {
       />
 
       {/* Public fallback route */}
+
       <Route path="*" element={<Landing />} />
     </Routes>
   );

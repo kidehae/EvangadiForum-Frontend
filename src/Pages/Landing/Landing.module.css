@@ -8,7 +8,9 @@
 /* Left: Authentication section */
 .authSection {
   width: 50%;
+
   /* background-image: url("../../assets/landing_background.png");  */
+
   background-size: cover;
   background-position: center;
   display: flex;

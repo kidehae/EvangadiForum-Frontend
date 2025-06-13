@@ -1,3 +1,4 @@
+
 .homeContainer {
   max-width: 900px;
   margin: 2rem auto;
@@ -17,6 +18,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   margin-bottom: 1.5rem;
 }
 
@@ -74,10 +76,94 @@
   display: flex;
   gap: 1rem;
   justify-content: center;
+=======
+  margin-bottom: 3rem;
+}
+
+/* .askQuestionBtn {
+  background-color: #7c83bb;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(108, 122, 224, 0.3);
+} */
+
+.askQuestionBtn:hover {
+  background-color: #5a67d8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(108, 122, 224, 0.4);
+}
+
+.askQuestionBtn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(108, 122, 224, 0.3);
+}
+
+.welcomeMessage {
+  font-size: 1.1rem;
+  color: #2d3748;
+  font-weight: 500;
+}
+
+/* Questions Section */
+.questionsSection {
+  width: 100%;
+}
+
+.questionsTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+.errorMessage {
+  background-color: #fed7d7;
+  color: #c53030;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.noQuestions {
+  text-align: center;
+  padding: 3rem 0;
+  color: #718096;
+}
+
+.noQuestions p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Questions List Container */
+.questionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* See More/See Less Button Styling */
+.see_more_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1rem 0;
+
 }
 
 .see_more_button,
 .see_less_button {
+
   background-color: #498787;
   color: #013334;
   border: none;
@@ -86,10 +172,12 @@
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s ease;
+
 }
 
 .see_more_button:hover,
 .see_less_button:hover {
+
   background-color: #3a6c6c;
   color: #e5f1f1;
 }

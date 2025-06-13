@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import styles from "./QuestionList.module.css";
 import { FaUserCircle, FaAngleRight } from "react-icons/fa";
+import PropTypes from "prop-types";
+
 
 const QuestionList = ({ username, title, questionId }) => {
   return (
@@ -19,7 +21,7 @@ const QuestionList = ({ username, title, questionId }) => {
           </div>
         </div>
         <div className={styles.askArrow}>
-          
+
           <Link to={`/question/${questionId}`}>
             <FaAngleRight className={styles.icon} size={25} />
           </Link>
@@ -29,5 +31,14 @@ const QuestionList = ({ username, title, questionId }) => {
     </div>
   );
 };
+
+
+QuestionList.propTypes = {
+  username: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  questionId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+};
+
 
 export default QuestionList;

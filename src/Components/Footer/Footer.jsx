@@ -1,3 +1,4 @@
+
 import React from "react";
 // import evalogo from "../../assets/evafootlogo.png"
 import classes from "./Footer.module.css";
@@ -51,7 +52,9 @@ function Footer() {
 
           <div className={classes.second_section}>
             <ul>
+
               <h3>Useful Links</h3>
+
 
               <div className={classes.lists}>
                 <li>How it works</li>
@@ -77,3 +80,4 @@ function Footer() {
 }
 
 export default Footer;
+

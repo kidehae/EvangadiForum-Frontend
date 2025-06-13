@@ -1,3 +1,4 @@
+
 import styles from "./About.module.css";
 
 function AboutInfo() {
@@ -19,3 +20,4 @@ function AboutInfo() {
 }
 
 export default AboutInfo;
+
