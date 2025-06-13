@@ -1,13 +1,15 @@
 import { Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
+
+import Layout from "./Components/Layout/Layout";
+
 import Home from "./Pages/Home/Home";
 import Landing from "./Pages/Landing/Landing";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
-import AnswerPage from "./Pages/Answer/Answer";
 
 
-// import question page here
-// import answer page here
+import QuestionPage from "./Pages/Question/QuestionPage";
+import PostAnswer from "./Pages/Answer/Answer";
+
 
 function Router() {
   return (
@@ -24,43 +26,44 @@ function Router() {
         }
       />
 
-      {/* <Route
+
+      <Route
         path="/postQuestion"
         element={
           <ProtectedRoute>
-             <Layout>
-                <QuestionPage />
+            <Layout>
+              <QuestionPage />
             </Layout>
           </ProtectedRoute>
         }
-      /> */}
+      />
 
-      {/* <Route
+      <Route
+        path="/question/:questionId"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <QuestionPage />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+
         path="/question/:questionId/answers"
         element={
           <ProtectedRoute>
             <Layout>
-                <AnswerPage />
+
+              <PostAnswer />
             </Layout>
           </ProtectedRoute>
         }
-      /> */}
+      />
 
-      <Route
-  path="/question/:questionId/answers"
-  element={
-    <ProtectedRoute>
-      <Layout>
-        <AnswerPage />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
+      {/* Public fallback route */}
 
-
-
-
-      {/* Public Route */}
       <Route path="*" element={<Landing />} />
     </Routes>
   );
