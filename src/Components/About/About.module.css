@@ -1,5 +1,49 @@
 
 .button {
+  background-color: #FF8502;
+  color: #013334;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 1.5rem auto 0; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.5px;
+  display: block; /* Required for margin auto to work */
+}
+
+
+.button:hover {
+  background-color: #F39229;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+.aboutContainer {
+  padding: 20px; 
+  max-width: 600px; 
+  margin: 0 auto; 
+  text-align: left;
+}
+
+.aboutContainer h1 {
+  font-size: 2.5em; 
+  color: #cec9c9; 
+  margin-bottom: 20px;
+  font-weight: bold; 
+}
+
+.aboutContainer p {
+  font-size: 1em; 
+  line-height: 1.6;  
+  color: #cec9c9;
+  margin-bottom: 15px;
+}
+=======
+
+.button {
     background-color: #FF8502;
     color: #013334;
     border: none;

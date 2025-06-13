@@ -7,7 +7,7 @@
     top: 0px;
     z-index: 999;
     background-color: #fff;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
   }
   .inner_container {
     max-width: 1400px;

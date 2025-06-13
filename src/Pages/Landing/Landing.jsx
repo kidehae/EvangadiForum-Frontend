@@ -1,4 +1,6 @@
-import Layout from "../../components/Layout/Layout";
+
+import Layout from "../../Components/Layout/Layout";
+
 import { Route, Routes } from "react-router-dom";
 import Register from "../../Components/Register/Register";
 import SignIn from "../../Components/SignIn/SignIn";

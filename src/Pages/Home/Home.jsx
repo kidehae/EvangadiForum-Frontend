@@ -5,10 +5,7 @@ import { getAllQuestions } from "../../Utility/axios";
 import QuestionList from "../../Components/QuestionList/QuestionList";
 import { Button, Spinner } from "react-bootstrap";
 import styles from "./Home.module.css";
-
-
-//  home page 
-
+//home page
 const Home = () => {
   const [questions, setQuestions] = useState([]);
   const [allQuestions, setAllQuestions] = useState([]);
@@ -87,6 +84,7 @@ const Home = () => {
           </div>
         </div>
 
+
         <div className={styles.questionsSection}>
           <h2 className={styles.questionsTitle}>Questions</h2>
           {error && <div className={styles.errorMessage}>{error}</div>}
@@ -108,6 +106,24 @@ const Home = () => {
               ))
             )}
           </div>
+
+
+          {/* seeless and seemore */}
+          {allQuestions.length > 10 && (
+            <div className={styles.see_more_container}>
+              {displayCount < allQuestions.length && (
+                <Button className={styles.see_more_button} onClick={seeMore}>
+                  See More
+                </Button>
+              )}
+              {displayCount > 10 && (
+                <Button className={styles.see_less_button} onClick={seeLess}>
+                  See Less
+                </Button>
+              )}
+            </div>
+          )}
+
         </div>
       </div>
     </div>

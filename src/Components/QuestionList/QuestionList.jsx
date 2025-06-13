@@ -3,6 +3,7 @@ import styles from "./QuestionList.module.css";
 import { FaUserCircle, FaAngleRight } from "react-icons/fa";
 import PropTypes from "prop-types";
 
+
 const QuestionList = ({ username, title, questionId }) => {
   return (
     <div className={styles.questionsContainer}>
@@ -20,6 +21,7 @@ const QuestionList = ({ username, title, questionId }) => {
           </div>
         </div>
         <div className={styles.askArrow}>
+
           <Link to={`/question/${questionId}`}>
             <FaAngleRight className={styles.icon} size={25} />
           </Link>
@@ -30,11 +32,13 @@ const QuestionList = ({ username, title, questionId }) => {
   );
 };
 
+
 QuestionList.propTypes = {
   username: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   questionId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
 };
+
 
 export default QuestionList;
