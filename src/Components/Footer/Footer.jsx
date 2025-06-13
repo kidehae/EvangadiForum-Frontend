@@ -51,7 +51,7 @@ function Footer() {
 
           <div className={classes.second_section}>
             <ul>
-              <h3>Usefull Link</h3>
+              <h3>Useful Links</h3>
 
               <div className={classes.lists}>
                 <li>How it works</li>

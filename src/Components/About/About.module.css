@@ -1,45 +1,42 @@
-/* About.module.css */
+.button {
+  background-color: #FF8502;
+  color: #013334;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 1.5rem auto 0; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.5px;
+  display: block; /* Required for margin auto to work */
+}
 
+
+.button:hover {
+  background-color: #F39229;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
 .aboutContainer {
-    width: 30%;
-    margin: 0 auto;
-  }
-  
-  .about-button {
-    display: block;
-    /* margin: 20px auto; */
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #ff7b00;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .about-button:hover {
-    background-color: #0056b3;
-  }
-  
-  a {
-    color: orangered;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-  }
+  padding: 20px; 
+  max-width: 600px; 
+  margin: 0 auto; 
+  text-align: left;
+}
 
-  .aboutContainer h2{
-    font-size: 36px;
-  color: rgb(75, 69, 111);
-  font-weight: 500;
-  margin-top: 10px;
+.aboutContainer h1 {
+  font-size: 2.5em; 
+  color: #cec9c9; 
   margin-bottom: 20px;
-  }
+  font-weight: bold; 
+}
 
-  .aboutContainer p{
-    font-size: 15px;
-  font-weight: 400;
-  color: rgb(75, 69, 111);
+.aboutContainer p {
+  font-size: 1em; 
+  line-height: 1.6;  
+  color: #cec9c9;
   margin-bottom: 15px;
-  }
+}

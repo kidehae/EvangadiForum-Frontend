@@ -1,0 +1,101 @@
+.homeContainer {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.homeContent {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.askQuestionBtn {
+  background-color: #526CF0;
+  color: #013334;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.askQuestionBtn:hover {
+  background-color: #FF8502;
+  color: #e5f1f1;
+}
+
+.welcomeMessage {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #3B455A;
+}
+
+.questionsSection {
+  margin-top: 2rem;
+}
+
+.questionsTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #013334;
+}
+
+.errorMessage {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.questionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.noQuestions {
+  font-style: italic;
+  color: #777;
+  text-align: center;
+}
+
+.see_more_container {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.see_more_button,
+.see_less_button {
+  background-color: #498787;
+  color: #013334;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.see_more_button:hover,
+.see_less_button:hover {
+  background-color: #3a6c6c;
+  color: #e5f1f1;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
