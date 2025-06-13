@@ -1,95 +1,80 @@
-//import statements
-import React, { useEffect, useState } from 'react';//core react features
-// import axios from '../../Utility/axios'; // Axios instance with base URL
-import styles from '../Answer/Answer.module.css'; // CSS Module
-import { useParams, Link } from 'react-router-dom';//react router tools to get URL params and link between routes.
+import React, { useEffect, useState } from 'react';
+import styles from '../Answer/Answer.module.css';
+import { useParams, Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import { FaUserCircle } from 'react-icons/fa';
 import { axiosInstance as axios } from '../../Utility/axios';
 
 const AnswerPage = () => {
-const { questionId } = useParams();
-const [question, setQuestion] = useState(null);
-const [answers, setAnswers] = useState([]);
-const [newAnswer, setNewAnswer] = useState('');
-const [loading, setLoading] = useState(true);
-const [errorMessage, setErrorMessage] = useState('');
-const [successMessage, setSuccessMessage] = useState('');
+  const { questionId } = useParams();
+  const [question, setQuestion] = useState(null);
+  const [answers, setAnswers] = useState([]);
+  const [newAnswer, setNewAnswer] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
-    try {
+      try {
         const [qRes, aRes] = await Promise.all([
-        axios.get(`/api/question/${questionId}`,{ withCredentials: true }),
-        axios.get(`/api/answer/${questionId}`,{ withCredentials: true })
+          axios.get(`/api/question/${questionId}`, { withCredentials: true }),
+          axios.get(`/api/answer/${questionId}`, { withCredentials: true })
         ]);
         setQuestion(qRes.data);
-        setAnswers(aRes.data.answers);
+
+        // Sort answers: latest first
+        const sortedAnswers = aRes.data.answers.sort(
+          (a, b) => new Date(b.createdate) - new Date(a.createdate)
+        );
+        setAnswers(sortedAnswers);
+
         setErrorMessage('');
-    } catch (error) {
+      } catch (error) {
         const msg = error.response?.data?.message || 'An unexpected error occurred while fetching data.';
         setErrorMessage(msg);
         console.error('Error fetching data:', msg);
-    } finally {
+      } finally {
         setLoading(false);
-    }
+      }
     };
 
     fetchData();
-}, [questionId]);
+  }, [questionId]);
 
-// const handlePostAnswer = async () => {
-//     if (!newAnswer.trim()) {
-//     setErrorMessage('Please provide answer!');
-//     return;
-//     }
+  const handlePostAnswer = async () => {
+    const trimmedAnswer = newAnswer.trim();
 
-//     try {
-//       const res = await axios.post('/api/answer', {
-//         questionid: questionId,
-//         answer: newAnswer,
-//       });
+    if (!trimmedAnswer) {
+      setErrorMessage("Please provide answer!");
+      return;
+    }
 
-//       setAnswers((prev) => [...prev, res.data]);
-//       setNewAnswer('');
-//       setErrorMessage('');
-//       setSuccessMessage('✅ Your answer was posted successfully!');
-//     } catch (err) {
-//       const msg = err.response?.data?.msg || err.response?.data?.message || 'An unexpected error occurred.';
-//       setErrorMessage(msg);
-//       console.error('Error posting answer:', msg);
-//     }
-//   };
-const handlePostAnswer = async () => {
-  const trimmedAnswer = newAnswer.trim();
+    if (trimmedAnswer.length > 200) {
+      setErrorMessage("Answer must be at least 150 characters.");
+      return;
+    }
 
-  if (!trimmedAnswer) {
-    setErrorMessage('Please provide answer!');
-    return;
-  }
+    try {
+      const res = await axios.post('/api/answer', {
+        questionid: questionId,
+        answer: trimmedAnswer,
+      });
 
-  if (trimmedAnswer.length < 150) {
-    setErrorMessage('Answer must be at least 150 characters.');
-    return;
-  }
-
-  try {
-    const res = await axios.post('/api/answer', {
-      questionid: questionId,
-      answer: trimmedAnswer,
-    });
-
-    setAnswers((prev) => [...prev, res.data]);
-    setNewAnswer('');
-    setErrorMessage('');
-    setSuccessMessage('✅ Your answer was posted successfully!');
-  } catch (err) {
-    const msg = err.response?.data?.msg || err.response?.data?.message || 'An unexpected error occurred.';
-    setErrorMessage(msg);
-    console.error('Error posting answer:', msg);
-  }
-};
-
+      // Add new answer to top
+      setAnswers((prev) => [res.data, ...prev]);
+      setNewAnswer('');
+      setErrorMessage('');
+      setSuccessMessage('✅ Your answer was posted successfully!');
+    } catch (err) {
+      const msg =
+        err.response?.data?.msg ||
+        err.response?.data?.message ||
+        "An unexpected error occurred.";
+      setErrorMessage(msg);
+      console.error("Error posting answer:", msg);
+    }
+  };
 
   if (loading) {
     return (
@@ -101,7 +86,6 @@ const handlePostAnswer = async () => {
   }
 
   if (!question) return <p>Question not found.</p>;
-  console.log('questionId', questionId);
 
   return (
     <div className={styles.container}>
@@ -115,7 +99,7 @@ const handlePostAnswer = async () => {
       {/* Error Message */}
       {errorMessage && <p className={styles.error}>{errorMessage}</p>}
 
-      {/* Success Message with Navigation Options */}
+      {/* Success Message */}
       {successMessage && (
         <div className={styles.successBox}>
           <p>{successMessage}</p>
@@ -126,10 +110,9 @@ const handlePostAnswer = async () => {
         </div>
       )}
 
+      <hr />
       {/* Answers Section */}
-      <hr/>
       <div className={styles.answerSection}>
-          
         <h3 className={styles.sectionTitle}>Answer From The Community</h3>
         {answers.length === 0 ? (
           <p>No answers yet.</p>
@@ -137,7 +120,7 @@ const handlePostAnswer = async () => {
           answers.map((answer) => (
             <div key={answer.answerid} className={styles.answer}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <FaUserCircle size={32} color="#007bff" />
+                <FaUserCircle size={32} color="#007bff" />
                 <div>
                   <p>{answer.answer}</p>
                   <span className={styles.timestamp}>
@@ -149,10 +132,10 @@ const handlePostAnswer = async () => {
           ))
         )}
       </div>
-      
+      <hr />
 
       {/* Post Answer Section */}
-      {/* <div className={styles.postAnswerSection}>
+      <div className={styles.postAnswerSection}>
         <h3 className={styles.sectionTitle}>Post Your Answer</h3>
         <textarea
           className={styles.textarea}
@@ -160,34 +143,13 @@ const handlePostAnswer = async () => {
           onChange={(e) => setNewAnswer(e.target.value)}
           placeholder="Your answer ..."
         />
-        <hr/>
+        <p style={{ color: newAnswer.trim().length < 200  ? 'red' : 'green' }}>
+          Characters: {newAnswer.trim().length} / 200 maximum
+        </p>
         <button onClick={handlePostAnswer} className={styles.postButton}>
           Post Answer
         </button>
-      </div> */}
-
-      <div className={styles.postAnswerSection}>
-  <h3 className={styles.sectionTitle}>Post Your Answer</h3>
-
-  <textarea
-    className={styles.textarea}
-    value={newAnswer}
-    onChange={(e) => setNewAnswer(e.target.value)}
-    placeholder="Your answer ..."
-  />
-
-  {/* Character Count Feedback */}
-  <p style={{ color: newAnswer.trim().length < 150 ? 'red' : 'green', marginTop: '0.5rem' }}>
-    Characters: {newAnswer.trim().length} / 150 minimum
-  </p>
-
-  <hr />
-
-  <button onClick={handlePostAnswer} className={styles.postButton}>
-    Post Answer
-  </button>
-</div>
-
+      </div>
     </div>
   );
 };
