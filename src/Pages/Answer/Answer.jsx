@@ -38,28 +38,58 @@ useEffect(() => {
     fetchData();
 }, [questionId]);
 
+// const handlePostAnswer = async () => {
+//     if (!newAnswer.trim()) {
+//     setErrorMessage('Please provide answer!');
+//     return;
+//     }
+
+//     try {
+//       const res = await axios.post('/api/answer', {
+//         questionid: questionId,
+//         answer: newAnswer,
+//       });
+
+//       setAnswers((prev) => [...prev, res.data]);
+//       setNewAnswer('');
+//       setErrorMessage('');
+//       setSuccessMessage('✅ Your answer was posted successfully!');
+//     } catch (err) {
+//       const msg = err.response?.data?.msg || err.response?.data?.message || 'An unexpected error occurred.';
+//       setErrorMessage(msg);
+//       console.error('Error posting answer:', msg);
+//     }
+//   };
 const handlePostAnswer = async () => {
-    if (!newAnswer.trim()) {
+  const trimmedAnswer = newAnswer.trim();
+
+  if (!trimmedAnswer) {
     setErrorMessage('Please provide answer!');
     return;
-    }
+  }
 
-    try {
-      const res = await axios.post('/api/answer', {
-        questionid: questionId,
-        answer: newAnswer,
-      });
+  if (trimmedAnswer.length < 150) {
+    setErrorMessage('Answer must be at least 150 characters.');
+    return;
+  }
 
-      setAnswers((prev) => [...prev, res.data]);
-      setNewAnswer('');
-      setErrorMessage('');
-      setSuccessMessage('✅ Your answer was posted successfully!');
-    } catch (err) {
-      const msg = err.response?.data?.msg || err.response?.data?.message || 'An unexpected error occurred.';
-      setErrorMessage(msg);
-      console.error('Error posting answer:', msg);
-    }
-  };
+  try {
+    const res = await axios.post('/api/answer', {
+      questionid: questionId,
+      answer: trimmedAnswer,
+    });
+
+    setAnswers((prev) => [...prev, res.data]);
+    setNewAnswer('');
+    setErrorMessage('');
+    setSuccessMessage('✅ Your answer was posted successfully!');
+  } catch (err) {
+    const msg = err.response?.data?.msg || err.response?.data?.message || 'An unexpected error occurred.';
+    setErrorMessage(msg);
+    console.error('Error posting answer:', msg);
+  }
+};
+
 
   if (loading) {
     return (
@@ -119,10 +149,10 @@ const handlePostAnswer = async () => {
           ))
         )}
       </div>
-      <hr/>
+      
 
       {/* Post Answer Section */}
-      <div className={styles.postAnswerSection}>
+      {/* <div className={styles.postAnswerSection}>
         <h3 className={styles.sectionTitle}>Post Your Answer</h3>
         <textarea
           className={styles.textarea}
@@ -130,10 +160,34 @@ const handlePostAnswer = async () => {
           onChange={(e) => setNewAnswer(e.target.value)}
           placeholder="Your answer ..."
         />
+        <hr/>
         <button onClick={handlePostAnswer} className={styles.postButton}>
           Post Answer
         </button>
-      </div>
+      </div> */}
+
+      <div className={styles.postAnswerSection}>
+  <h3 className={styles.sectionTitle}>Post Your Answer</h3>
+
+  <textarea
+    className={styles.textarea}
+    value={newAnswer}
+    onChange={(e) => setNewAnswer(e.target.value)}
+    placeholder="Your answer ..."
+  />
+
+  {/* Character Count Feedback */}
+  <p style={{ color: newAnswer.trim().length < 150 ? 'red' : 'green', marginTop: '0.5rem' }}>
+    Characters: {newAnswer.trim().length} / 150 minimum
+  </p>
+
+  <hr />
+
+  <button onClick={handlePostAnswer} className={styles.postButton}>
+    Post Answer
+  </button>
+</div>
+
     </div>
   );
 };
