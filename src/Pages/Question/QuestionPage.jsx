@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import styles from './Questionpage.module.css';
-import { axiosInstance } from '../../utility/axios';
+import { axiosInstance } from '../../Utility/axios';
 
 function QuestionPage() {
   const [title, setTitle] = useState('');
