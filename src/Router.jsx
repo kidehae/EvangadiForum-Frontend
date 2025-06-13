@@ -1,15 +1,53 @@
-// Router.jsx
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Answer from './Pages/Answer/Answer'; // Adjust path if needed
+import { Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout/Layout";
+import Home from "./Pages/Home/Home";
+import Landing from "./Pages/Landing/Landing";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 
-const AppRoutes = () => {
+// import question page here
+// import answer page here
+
+function Router() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/answer" />} />
-      <Route path="/answer" element={<Answer />} />
+      {/* Protected Routes */}
+      <Route
+        path="/home"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Home />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* <Route
+        path="/postQuestion"
+        element={
+          <ProtectedRoute>
+             <Layout>
+                <QuestionPage />
+            </Layout>
+          </ProtectedRoute>
+        }
+      /> */}
+
+      {/* <Route
+        path="/question/:questionId/answers"
+        element={
+          <ProtectedRoute>
+            <Layout>
+                <AnswerPage />
+            </Layout>
+          </ProtectedRoute>
+        }
+      /> */}
+
+      {/* Public Route */}
+      <Route path="*" element={<Landing />} />
     </Routes>
   );
-};
+}
 
-export default AppRoutes;
+export default Router;

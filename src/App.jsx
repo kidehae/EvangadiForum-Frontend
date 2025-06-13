@@ -1,11 +1,9 @@
-// App.jsx
-import React from 'react';
-import Answer from './Pages/Answer/Answer'; // Adjust the path if needed
+import Router from "./Router";
 
-const App = () => {
+function App() {
   return (
     <div>
-      <Answer />
+      <Router />
     </div>
   );
 };
