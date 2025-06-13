@@ -3,6 +3,8 @@ import Layout from "./components/Layout/Layout";
 import Home from "./Pages/Home/Home";
 import Landing from "./Pages/Landing/Landing";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import AnswerPage from "./Pages/Answer/Answer";
+
 
 // import question page here
 // import answer page here
@@ -43,6 +45,20 @@ function Router() {
           </ProtectedRoute>
         }
       /> */}
+
+      <Route
+  path="/question/:questionId/answers"
+  element={
+    <ProtectedRoute>
+      <Layout>
+        <AnswerPage />
+      </Layout>
+    </ProtectedRoute>
+  }
+/>
+
+
+
 
       {/* Public Route */}
       <Route path="*" element={<Landing />} />

@@ -1,10 +1,11 @@
 //import statements
 import React, { useEffect, useState } from 'react';//core react features
-import axios from '../../Utility/axios'; // Axios instance with base URL
+// import axios from '../../Utility/axios'; // Axios instance with base URL
 import styles from '../Answer/Answer.module.css'; // CSS Module
 import { useParams, Link } from 'react-router-dom';//react router tools to get URL params and link between routes.
 import { ClipLoader } from 'react-spinners';
 import { FaUserCircle } from 'react-icons/fa';
+import { axiosInstance as axios } from '../../Utility/axios';
 
 const AnswerPage = () => {
 const { questionId } = useParams();

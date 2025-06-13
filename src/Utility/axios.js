@@ -25,3 +25,6 @@ export const getAllQuestions = () => {
 export const getQuestionById = (id) => {
   return axiosInstance.get(`/api/question/${id}`);
 };
+
+
+export default axiosInstance;
