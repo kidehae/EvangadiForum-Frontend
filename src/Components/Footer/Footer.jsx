@@ -1,11 +1,11 @@
 
 import React from "react";
-// import evalogo from "../../assets/evafootlogo.png"
 import classes from "./Footer.module.css";
 import { LuFacebook } from "react-icons/lu";
 import { AiOutlineYoutube } from "react-icons/ai";
 import { FaInstagram } from "react-icons/fa";
 import img1 from "../../assets/evangadi-logo-footer.png";
+import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer>
@@ -15,36 +15,36 @@ function Footer() {
             <ul>
               <div className={classes.logo_wrapper}>
                 <li>
-                  <a href="/">
+                  <Link to="/">
                     <img src={img1} alt="logo" />
-                  </a>
+                  </Link>
                 </li>
               </div>
 
               <div className={classes.footer_icons}>
                 <li>
-                  <a
-                    href="https://www.facebook.com/evangaditech"
+                  <Link
+                    to="https://www.facebook.com/evangaditech"
                     target="_blank"
                   >
                     <LuFacebook />
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="https://www.instagram.com/evangaditech/"
+                  <Link
+                    to="https://www.instagram.com/evangaditech/"
                     target="_blank"
                   >
                     <FaInstagram />
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="https://www.youtube.com/@EvangadiTech"
+                  <Link
+                    to="https://www.youtube.com/@EvangadiTech"
                     target="_blank"
                   >
                     <AiOutlineYoutube />
-                  </a>
+                  </Link>
                 </li>
               </div>
             </ul>
@@ -55,11 +55,24 @@ function Footer() {
 
               <h3>Useful Links</h3>
 
-
-              <div className={classes.lists}>
-                <li>How it works</li>
-                <li>Terms of Service</li>
-                <li>Privacy policy</li>
+              <div
+                className={classes.lists}
+              >
+                <li>
+                  <Link to="https://www.evangadi.com/legal/privacy/">
+                    privacy policies
+                  </Link>
+                </li>
+                <li>
+                  <Link to="https://evangadi.com/legal/terms">
+                    terms of service
+                  </Link>
+                </li>
+                <li>
+                  <Link to="https://tutoring.evangadi.com/privacy">
+                    Privacy policy
+                  </Link>
+                </li>
               </div>
             </ul>
           </div>
@@ -67,7 +80,9 @@ function Footer() {
             <ul>
               <h3>contact info</h3>
               <div className={classes.lists}>
-                <li>Evangadi Networks</li>
+                <li>
+                  <Link to="https://evangadi.com/">evangadi networks</Link>
+                </li>
                 <li> support@evangadi.com</li>
                 <li>+1-202-386-2702</li>
               </div>

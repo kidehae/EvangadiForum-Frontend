@@ -148,11 +148,12 @@
 }
 
 .signupLinkA {
-  color: #FF8502;
+  color: #FF8813;
   text-decoration: underline;
 }
 
 .signupLinkA:hover {
+  color:#526CF0;
   text-decoration: none;
 }
 

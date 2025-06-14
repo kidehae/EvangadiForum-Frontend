@@ -86,7 +86,7 @@ const SignIn = () => {
         <button
           type="submit"
           className={styles.signinButton}
-          disabled={loading || !formData.email || !formData.password}
+          disabled={loading}
         >
           {loading ? <span className={styles.spinner}></span> : "Sign In"}
         </button>
