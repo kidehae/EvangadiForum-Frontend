@@ -8,9 +8,7 @@
 /* Left: Authentication section */
 .authSection {
   width: 50%;
-
-  /* background-image: url("../../assets/landing_background.png");  */
-
+  background-image: url("../../assets/bg.jpeg"); 
   background-size: cover;
   background-position: center;
   display: flex;
@@ -41,8 +39,6 @@
 }
 
 /* Overlay box for about content */
-
-
 .aboutOverlay {
   background-color: transparent;
   padding: 2rem;

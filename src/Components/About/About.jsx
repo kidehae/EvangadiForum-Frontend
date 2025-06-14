@@ -14,10 +14,6 @@ function AboutInfo() {
         Whether you are willing to share your knowledge or you are just looking
         to meet mentors of your own, please start by joining the network here.
       </p>
-      {/* <button className={styles.button}>
-        <Link to="/how-it-works">How it Works</Link>
-      </button> */}
-
       <Link to="/how-it-works" className={styles.button}>
         How it Works
       </Link>

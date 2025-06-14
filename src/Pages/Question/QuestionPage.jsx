@@ -1,10 +1,8 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Components/Auth/Auth";
+import { useNavigate, Link } from "react-router-dom";
 import { axiosInstance } from "../../Utility/axios";
-import {FaArrowRight} from "react-icons/fa"
+import { FaArrowRight } from "react-icons/fa";
 import styles from "./Question.module.css";
-import { Link } from "react-router-dom";
 
 function QuestionPage() {
   const [title, setTitle] = useState("");
@@ -15,20 +13,13 @@ function QuestionPage() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
+
     setLoading(true);
-
-    if (!title.trim() || !description.trim()) {
-      setError("Both title and description are required.");
-      setLoading(false);
-      return;
-    }
-
     try {
       await axiosInstance.post("/api/question", {
         title,
@@ -40,41 +31,43 @@ function QuestionPage() {
       setTitle("");
       setDescription("");
       setTag("");
-      setLoading(false);
-
     } catch (err) {
+      console.error("Error posting question:", err);
       setError(
         err.response?.data?.message ||
           "Failed to post question. Please try again."
       );
+    } finally {
       setLoading(false);
     }
   };
 
   return (
     <div className={styles.questionContainer}>
+      <h1 className={styles.title}>Steps to write a good question</h1>
+      <ul className={styles.stepsList}>
+        <li>
+          <FaArrowRight className={styles.listIcon} />
+          Summarize your problem in a one-line title
+        </li>
+        <li>
+          <FaArrowRight className={styles.listIcon} />
+          Describe your problem in more detail
+        </li>
+        <li>
+          <FaArrowRight className={styles.listIcon} />
+          Explain what you tried and what you expected to happen
+        </li>
+        <li>
+          <FaArrowRight className={styles.listIcon} />
+          Review your question and post it to the site
+        </li>
+      </ul>
 
-        <h1 className={styles.title}>Steps to write a good question</h1>
-        <ul className={styles.stepsList}>
-          <li>
-            <FaArrowRight className={styles.listIcon} />
-            Summarize your problem in a one-line title
-          </li>
-          <li>
-            <FaArrowRight className={styles.listIcon} />
-            Describe your problem in more detail
-          </li>
-          <li>
-            <FaArrowRight className={styles.listIcon} />
-            Explain what you tried and what you expected to happen
-          </li>
-          <li>
-            <FaArrowRight className={styles.listIcon} />
-            Review your question and post it to the site
-          </li>
-        </ul>
+      <h1 className={styles.title}>Ask a Question</h1>
 
-      {/* Success Message */}
+      {/* Error & Success Messages */}
+      {error && <div className={styles.errorBox}>{error}</div>}
       {success && (
         <div className={styles.successBox}>
           <p>{success}</p>
@@ -89,7 +82,7 @@ function QuestionPage() {
         </div>
       )}
 
-      <h1 className={styles.title}>Ask a Question</h1>
+      {/* Question Form */}
       <form onSubmit={handleSubmit} className={styles.postQuestionForm}>
         <input
           type="text"
@@ -113,7 +106,6 @@ function QuestionPage() {
           onChange={(e) => setTag(e.target.value)}
           className={styles.tagInput}
         />
-
         <button
           type="submit"
           disabled={loading}
@@ -122,9 +114,6 @@ function QuestionPage() {
           {loading ? "Submitting..." : "Post Your Question"}
         </button>
       </form>
-
-      {error && <p className={styles.errorMessage}>{error}</p>}
-      {success && <p className={styles.successMessage}>{success}</p>}
     </div>
   );
 }
