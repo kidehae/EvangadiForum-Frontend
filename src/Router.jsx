@@ -5,16 +5,13 @@ import Layout from "./Components/Layout/Layout";
 import Home from "./Pages/Home/Home";
 import Landing from "./Pages/Landing/Landing";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
-
-
 import QuestionPage from "./Pages/Question/QuestionPage";
-import PostAnswer from "./Pages/Answer/Answer";
-
+import AnswerPage from "./Pages/Answer/Answer";
+import HowItWorks from "../src/Pages/HowItWorks/HowItWorks"
 
 function Router() {
   return (
     <Routes>
-      {/* Protected Routes */}
       <Route
         path="/home"
         element={
@@ -28,7 +25,16 @@ function Router() {
 
 
       <Route
-        path="/postQuestion"
+        path="/how-it-works"
+        element={
+            <Layout>
+              <HowItWorks/>
+            </Layout>
+        }
+      />
+
+      <Route
+        path="/askQuestion"
         element={
           <ProtectedRoute>
             <Layout>
@@ -37,36 +43,20 @@ function Router() {
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/question/:questionId"
         element={
           <ProtectedRoute>
             <Layout>
-              <QuestionPage />
+              <AnswerPage />
             </Layout>
           </ProtectedRoute>
         }
       />
-
-      <Route
-
-        path="/question/:questionId/answers"
-        element={
-          <ProtectedRoute>
-            <Layout>
-
-              <PostAnswer />
-            </Layout>
-          </ProtectedRoute>
-        }
-      />
-
-      {/* Public fallback route */}
-
       <Route path="*" element={<Landing />} />
     </Routes>
   );
 }
 
 export default Router;
+

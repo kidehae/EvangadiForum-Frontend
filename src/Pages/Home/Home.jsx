@@ -1,19 +1,20 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../Components/Auth/Auth";
 import { useNavigate } from "react-router-dom";
-import { getAllQuestions } from "../../Utility/axios";
+import { questionsAPI } from "../../Utility/axios";
 import QuestionList from "../../Components/QuestionList/QuestionList";
 import { Button, Spinner } from "react-bootstrap";
 import styles from "./Home.module.css";
 //home page
 const Home = () => {
+  
   const [questions, setQuestions] = useState([]);
   const [allQuestions, setAllQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [displayCount, setDisplayCount] = useState(5);
+  const [displayCount, setDisplayCount] = useState(4);
 
-  const { user } = useContext(AuthContext); 
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,10 +29,9 @@ const Home = () => {
 
   const fetchQuestions = async () => {
     try {
-      const response = await getAllQuestions();
+      const response = await questionsAPI.getAllQuestions();
       console.log("API response:", response.data);
 
-      // Since backend returns { questions: [...] }
       if (response.status === 200 && response.data.questions) {
         setAllQuestions(response.data.questions);
         setQuestions(response.data.questions.slice(0, displayCount));
@@ -46,7 +46,6 @@ const Home = () => {
       setLoading(false);
     }
   };
-  
 
   const handleAskQuestion = () => {
     if (!user) {
@@ -61,7 +60,7 @@ const Home = () => {
   };
 
   const seeLess = () => {
-    setDisplayCount(5);
+    setDisplayCount(4);
   };
 
   if (loading) {
@@ -80,7 +79,7 @@ const Home = () => {
             Ask Question
           </Button>
           <div className={styles.welcomeMessage}>
-            Welcome: {user?.username || user?.first_name || "User"}
+            <h3>Welcome, {user?.username || "User"}!</h3>
           </div>
         </div>
 
@@ -89,7 +88,6 @@ const Home = () => {
           <h2 className={styles.questionsTitle}>Questions</h2>
           {error && <div className={styles.errorMessage}>{error}</div>}
           <div className={styles.questionsList}>
-
             {questions.length === 0 ? (
               <div className={styles.noQuestions}>
                 <p>No questions available</p>
@@ -97,7 +95,7 @@ const Home = () => {
             ) : (
               questions.map((q) => (
                 <QuestionList
-                  key={q.questionid}
+                  key={q.questionid || q.id}
                   username={q.username}
                   title={q.title}
                   userId={q.userid}
@@ -108,22 +106,27 @@ const Home = () => {
           </div>
 
 
-          {/* seeless and seemore */}
-          {allQuestions.length > 10 && (
-            <div className={styles.see_more_container}>
-              {displayCount < allQuestions.length && (
-                <Button className={styles.see_more_button} onClick={seeMore}>
-                  See More
-                </Button>
-              )}
-              {displayCount > 10 && (
-                <Button className={styles.see_less_button} onClick={seeLess}>
-                  See Less
-                </Button>
-              )}
-            </div>
-          )}
-
+          {/* Show buttons for see more / see less only if needed */}
+          <div className={styles.see_more_container}>
+            {displayCount < allQuestions.length && (
+              <Button
+                className={styles.see_more_button}
+                onClick={seeMore}
+                variant="secondary"
+              >
+                See More
+              </Button>
+            )}
+            {displayCount > 4 && (
+              <Button
+                className={styles.see_less_button}
+                onClick={seeLess}
+                variant="secondary"
+              >
+                See Less
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>

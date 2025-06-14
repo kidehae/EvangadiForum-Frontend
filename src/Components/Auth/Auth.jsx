@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { axiosInstance } from "../../Utility/axios";
 
 export const AuthContext = createContext();
@@ -12,38 +12,40 @@ export const AuthProvider = ({ children }) => {
   //  A way to convert the token value into a true or false boolean
   const isAuthenticated = !!auth.token;
 
+  const [loading, setLoading] = useState(true);
   // Check auth status on load
   useEffect(() => {
     const checkAuth = async () => {
-      // checks if a token exists in localStorage
       let token = localStorage.getItem("authToken");
 
       if (!token) {
-        // avoids making a /users/check call when we already know there’s no token
         localStorage.setItem("authToken", "");
+        setLoading(false);
         return;
       }
 
       try {
-        // This tells your backend:"Here’s my token. Is it valid?"
         const res = await axiosInstance.get("api/users/check", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        // res.data returns something like { msg: "valid user", username: "Meti123", userid: 42 }
+
+        // console.log(res)
 
         if (res.data) {
-          setAuth({ token, user: res.data }); //user becomes { username, userid } (from backend)
+          setAuth({ token, user: res.data });
         }
       } catch (err) {
-        // it’s just a warning not an actual app-breaking error.
         console.warn("Auth check failed:", err.response?.data || err.message);
         localStorage.setItem("authToken", "");
-        setAuth({ token: null, user: null }); //Cleans up:Clears auth state from memory and logs the user out on the frontend
+        setAuth({ token: null, user: null });
       }
+
+      setLoading(false);
     };
 
     checkAuth();
   }, []);
+  
 
   // Login
   const login = async (email, password) => {
@@ -59,7 +61,7 @@ export const AuthProvider = ({ children }) => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      setAuth({ token, user: userRes.data }); //user: { username, userid } returned from /users/check
+      setAuth({ token, user: userRes.data }); //user: { msg, username, userid } returned from /users/check
       return { success: true };
     } catch (err) {
       return {
@@ -107,6 +109,7 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         logout,
+        loading
       }}
     >
       {children}

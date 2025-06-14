@@ -1,39 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import styles from '../Answer/Answer.module.css';
-import { useParams, Link } from 'react-router-dom';
-import { ClipLoader } from 'react-spinners';
-import { FaUserCircle } from 'react-icons/fa';
-import { axiosInstance as axios } from '../../Utility/axios';
+import React, { useEffect, useState } from "react";
+import styles from "./Answer.module.css";
+import { useParams, Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+import { FaUserCircle } from "react-icons/fa";
+import { questionsAPI, answersAPI } from "../../Utility/axios";
+import { useContext } from "react";
+import { AuthContext } from "../../Components/Auth/Auth";
+
 
 const AnswerPage = () => {
   const { questionId } = useParams();
+  const { user } = useContext(AuthContext);
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
-  const [newAnswer, setNewAnswer] = useState('');
+  const [newAnswer, setNewAnswer] = useState("");
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [qRes, aRes] = await Promise.all([
-          axios.get(`/api/question/${questionId}`, { withCredentials: true }),
-          axios.get(`/api/answer/${questionId}`, { withCredentials: true })
-        ]);
-        setQuestion(qRes.data);
+        const qRes = await questionsAPI.getQuestionById(questionId);
+        setQuestion(qRes.data.question);
 
-        // Sort answers: latest first
-        const sortedAnswers = aRes.data.answers.sort(
-          (a, b) => new Date(b.createdate) - new Date(a.createdate)
-        );
-        setAnswers(sortedAnswers);
+        try {
+          const aRes = await answersAPI.getAnswersByQuestionId(questionId);
+          setAnswers(aRes.data.answers);
+        } catch (ansErr) {
+          if (ansErr.response?.status === 404) {
+            setAnswers([]); // No answers
+          } else {
+            throw ansErr;
+          }
+        }
 
-        setErrorMessage('');
+        setErrorMessage("");
       } catch (error) {
-        const msg = error.response?.data?.message || 'An unexpected error occurred while fetching data.';
+        const msg =
+          error.response?.data?.message ||
+          "An unexpected error occurred while fetching data.";
         setErrorMessage(msg);
-        console.error('Error fetching data:', msg);
+        console.error("Error fetching data:", msg);
       } finally {
         setLoading(false);
       }
@@ -43,29 +51,26 @@ const AnswerPage = () => {
   }, [questionId]);
 
   const handlePostAnswer = async () => {
-    const trimmedAnswer = newAnswer.trim();
-
-    if (!trimmedAnswer) {
+    if (!newAnswer.trim()) {
       setErrorMessage("Please provide answer!");
       return;
     }
 
-    if (trimmedAnswer.length > 200) {
-      setErrorMessage("Answer must be at least 150 characters.");
-      return;
-    }
-
     try {
-      const res = await axios.post('/api/answer', {
+      const res = await answersAPI.postAnswer({
         questionid: questionId,
-        answer: trimmedAnswer,
+        answer: newAnswer,
       });
 
-      // Add new answer to top
-      setAnswers((prev) => [res.data, ...prev]);
-      setNewAnswer('');
-      setErrorMessage('');
-      setSuccessMessage('✅ Your answer was posted successfully!');
+      // Push the real answer returned by backend to the list
+      setAnswers((prev) => [
+        ...prev,
+        { ...res.data, username: user?.username || "You" },
+      ]);
+
+      setNewAnswer("");
+      setErrorMessage("");
+      setSuccessMessage("✅ Your answer was posted successfully!");
     } catch (err) {
       const msg =
         err.response?.data?.msg ||
@@ -75,6 +80,7 @@ const AnswerPage = () => {
       console.error("Error posting answer:", msg);
     }
   };
+  
 
   if (loading) {
     return (
@@ -85,16 +91,18 @@ const AnswerPage = () => {
     );
   }
 
-  if (!question) return <p>Question not found.</p>;
-
   return (
     <div className={styles.container}>
       {/* Question Section */}
-      <div className={styles.questionSection}>
-        <h2 className={styles.sectionTitle}>QUESTION</h2>
-        <h3 className={styles.title}>{question.title}</h3>
-        <p className={styles.body}>{question.body}</p>
-      </div>
+      {question ? (
+        <div className={styles.questionSection}>
+          <h2 className={styles.sectionTitle}>QUESTION</h2>
+          <h3 className={styles.title}>{question.title}</h3>
+          <p className={styles.body}>{question.description}</p>
+        </div>
+      ) : (
+        <p className={styles.error}>Question not found.</p>
+      )}
 
       {/* Error Message */}
       {errorMessage && <p className={styles.error}>{errorMessage}</p>}
@@ -104,27 +112,33 @@ const AnswerPage = () => {
         <div className={styles.successBox}>
           <p>{successMessage}</p>
           <div className={styles.navigationOptions}>
-            <Link to="/" className={styles.navButton}>🏠 Home</Link>
-            <Link to="/api/question" className={styles.navButton}>📚 All Questions</Link>
+            <Link to="/home" className={styles.navButton}>
+              🏠 Home
+            </Link>
+            <Link to="/home" className={styles.navButton}>
+              📚 All Questions
+            </Link>
           </div>
         </div>
       )}
 
-      <hr />
       {/* Answers Section */}
       <div className={styles.answerSection}>
-        <h3 className={styles.sectionTitle}>Answer From The Community</h3>
+        <h3 className={styles.sectionTitle}>Answers From The Community</h3>
         {answers.length === 0 ? (
           <p>No answers yet.</p>
         ) : (
           answers.map((answer) => (
             <div key={answer.answerid} className={styles.answer}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "1rem" }}
+              >
                 <FaUserCircle size={32} color="#007bff" />
                 <div>
                   <p>{answer.answer}</p>
                   <span className={styles.timestamp}>
-                    {new Date(answer.createdate).toLocaleString()} — {answer.username}
+                    {new Date(answer.createdate).toLocaleString()} —{" "}
+                    {answer.username}
                   </span>
                 </div>
               </div>
@@ -132,7 +146,6 @@ const AnswerPage = () => {
           ))
         )}
       </div>
-      <hr />
 
       {/* Post Answer Section */}
       <div className={styles.postAnswerSection}>
@@ -143,9 +156,6 @@ const AnswerPage = () => {
           onChange={(e) => setNewAnswer(e.target.value)}
           placeholder="Your answer ..."
         />
-        <p style={{ color: newAnswer.trim().length < 200  ? 'red' : 'green' }}>
-          Characters: {newAnswer.trim().length} / 200 maximum
-        </p>
         <button onClick={handlePostAnswer} className={styles.postButton}>
           Post Answer
         </button>
@@ -155,3 +165,4 @@ const AnswerPage = () => {
 };
 
 export default AnswerPage;
+

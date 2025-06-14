@@ -9,28 +9,25 @@ export const axiosInstance = axios.create({
   },
 });
 
-
-// Automatically attach token to every request if it exists
+// It only injects the token into the headers of outgoing requests if the token exists in localStorage.
 axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-
+  const token = localStorage.getItem("authToken");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-// Question API 
+// Question API
 export const questionsAPI = {
   getAllQuestions: () => axiosInstance.get("/api/question"),
   getQuestionById: (id) => axiosInstance.get(`/api/question/${id}`),
-  postQuestion: (data) => axiosInstance.post("/api/question", data),
 };
 
 // Answer API
 export const answersAPI = {
   getAnswersByQuestionId: (questionId) =>
-    axiosInstance.get(`/api/answers/${questionId}`),
+    axiosInstance.get(`/api/answer/${questionId}`),
   postAnswer: (answerData) => axiosInstance.post("/api/answer", answerData),
 
 };

@@ -7,9 +7,10 @@ body {
     overflow-x: hidden; /* Prevent horizontal scroll */
   }
   
-  a {
+
+  a{
     text-decoration: none;
-    color: inherit;
+    color: #989CA4;
   }
   
   
