@@ -28,6 +28,7 @@ export const questionsAPI = {
 export const answersAPI = {
   getAnswersByQuestionId: (questionId) =>
     axiosInstance.get(`/api/answer/${questionId}`),
+  
   postAnswer: (answerData) => axiosInstance.post("/api/answer", answerData),
 
 };
