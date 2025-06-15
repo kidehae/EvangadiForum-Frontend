@@ -48,10 +48,7 @@ const Home = () => {
   };
 
   const handleAskQuestion = () => {
-    if (!user) {
-      navigate("/auth");
-      return;
-    }
+
     navigate("/askQuestion");
   };
 

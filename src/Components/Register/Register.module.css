@@ -103,7 +103,7 @@
 }
 
 .registerButton {
-  background-color: #526CF0;
+  background-color:  #FF8813;
   color: #003333;
   border: none;
   padding: 14px;
@@ -117,7 +117,6 @@
 }
 
 .registerButton:hover:not(:disabled) {
-  background-color: #FF8813;
   color: #e0f0f0;
 }
 
