@@ -62,7 +62,14 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className={styles.loadingContainer}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <Spinner animation="border" variant="warning" />
       </div>
     );
