@@ -4,10 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Auth/Auth";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import styles from "./Register.module.css";
-<<<<<<< HEAD
-
-=======
->>>>>>> 3a08f3949e4a94343abeed840695b5597c993800
 
 const Register = () => {
   const { register } = useContext(AuthContext);
