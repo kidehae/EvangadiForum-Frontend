@@ -7,6 +7,7 @@ import styles from "./Register.module.css";
 
 const Register = () => {
   const { register } = useContext(AuthContext);
+
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -14,6 +15,7 @@ const Register = () => {
     firstname: "",
     lastname: "",
   });
+
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -48,9 +50,11 @@ const Register = () => {
         firstname: "",
         lastname: "",
       });
-      setTimeout(() => {
+
+      console.log(result)
+
         navigate("/home");
-      }, 500);
+
     } else {
       setError(result.message);
     }
@@ -58,14 +62,18 @@ const Register = () => {
     setLoading(false);
   };
 
-  const togglePasswordVisibility = () => setShowPassword((v) => !v);
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   return (
     <div className={styles.registerContainer}>
       <h2 className={styles.registerTitle}>Join the Network</h2>
       <p>
-        Already have an account? <Link to="/signIn">Sign In</Link>
+        Already have an account?{" "}
+        <Link to="/signIn" className={styles.link}>
+          Sign In
+        </Link>
       </p>
+
       <form onSubmit={handleSubmit} className={styles.registerForm}>
         <div className={styles.formInput}>
           <input
@@ -102,6 +110,7 @@ const Register = () => {
             />
           </div>
         </div>
+
         <div className={styles.formInput}>
           <input
             type="text"
@@ -142,16 +151,28 @@ const Register = () => {
         </button>
 
         {error && <p className={styles.errorMessage}>{error}</p>}
+
         {message && <p className={styles.successMessage}>{message}</p>}
       </form>
 
       <p className={styles.termsPrivacyLinks}>
         I agree with{" "}
-        <a href="https://www.evangadi.com/legal/privacy/">privacy policies</a>{" "}
-        and <a href="https://evangadi.com/legal/terms">terms of service</a>
+        <a
+          href="https://www.evangadi.com/legal/privacy/"
+          className={styles.link}
+        >
+          privacy policies
+        </a>{" "}
+        and{" "}
+        <a href="https://evangadi.com/legal/terms" className={styles.link}>
+          terms of service
+        </a>
       </p>
       <p>
-        <Link to="/signIn">Already have an account?</Link>
+
+        <Link to="/signIn" className={styles.link}>
+          Already have an account?
+        </Link>
       </p>
 
     </div>

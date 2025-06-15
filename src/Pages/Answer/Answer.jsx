@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //import statements
 import React, { useEffect, useState } from 'react';//core react features
 import { questionsAPI, answersAPI } from '../../Utility/axios';
@@ -5,18 +6,33 @@ import styles from '../Answer/Answer.module.css'; // CSS Module
 import { useParams, Link } from 'react-router-dom';//react router tools to get URL params and link between routes.
 import { ClipLoader } from 'react-spinners';
 import { FaUserCircle } from 'react-icons/fa';
+=======
+import React, { useEffect, useState } from "react";
+import styles from "./Answer.module.css";
+import { useParams, Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+import { FaUserCircle } from "react-icons/fa";
+import { questionsAPI, answersAPI } from "../../Utility/axios";
+import { useContext } from "react";
+import { AuthContext } from "../../Components/Auth/Auth";
+
+
+>>>>>>> 3a08f3949e4a94343abeed840695b5597c993800
 
 const AnswerPage = () => {
-const { questionId } = useParams();
-const [question, setQuestion] = useState(null);
-const [answers, setAnswers] = useState([]);
-const [newAnswer, setNewAnswer] = useState('');
-const [loading, setLoading] = useState(true);
-const [errorMessage, setErrorMessage] = useState('');
-const [successMessage, setSuccessMessage] = useState('');
+  const { questionId } = useParams();
+  const { user } = useContext(AuthContext);
+  const [question, setQuestion] = useState(null);
+  const [answers, setAnswers] = useState([]);
+  const [newAnswer, setNewAnswer] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  
 
-useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
+<<<<<<< HEAD
     try {
         const [qRes, aRes] = await Promise.all([
         questionsAPI.get(`/api/question/${questionId}`,{ withCredentials: true }),
@@ -27,38 +43,73 @@ useEffect(() => {
         setErrorMessage('');
     } catch (error) {
         const msg = error.response?.data?.message || 'An unexpected error occurred while fetching data.';
+=======
+      try {
+        const qRes = await questionsAPI.getQuestionById(questionId);
+        setQuestion(qRes.data.question);
+
+        try {
+          const aRes = await answersAPI.getAnswersByQuestionId(questionId);
+          setAnswers(aRes.data.answers);
+        } catch (ansErr) {
+          if (ansErr.response?.status === 404) {
+            setAnswers([]); // No answers
+          } else {
+            throw ansErr;
+          }
+        }
+
+        setErrorMessage("");
+      } catch (error) {
+        const msg =
+          error.response?.data?.message ||
+          "An unexpected error occurred while fetching data.";
+>>>>>>> 3a08f3949e4a94343abeed840695b5597c993800
         setErrorMessage(msg);
-        console.error('Error fetching data:', msg);
-    } finally {
+        console.error("Error fetching data:", msg);
+      } finally {
         setLoading(false);
-    }
+      }
     };
 
     fetchData();
-}, [questionId]);
+  }, [questionId]);
 
-const handlePostAnswer = async () => {
+  const handlePostAnswer = async () => {
     if (!newAnswer.trim()) {
-    setErrorMessage('Please provide answer!');
-    return;
+      setErrorMessage("Please provide answer!");
+      return;
     }
 
     try {
-      const res = await axios.post('/api/answer', {
+      const res = await answersAPI.postAnswer({
         questionid: questionId,
         answer: newAnswer,
       });
+      console.log("Backend response for new answer:", res.data);
 
-      setAnswers((prev) => [...prev, res.data]);
-      setNewAnswer('');
-      setErrorMessage('');
-      setSuccessMessage('✅ Your answer was posted successfully!');
+      // Push the real answer returned by backend to the list
+      setAnswers((prev) => [res.data, ...prev]);
+
+      setNewAnswer("");
+      setErrorMessage("");
+      setSuccessMessage("✅ Your answer was posted successfully!");
+
+      // Clear success message after 3 seconds
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 3000);
+      
     } catch (err) {
-      const msg = err.response?.data?.msg || err.response?.data?.message || 'An unexpected error occurred.';
+      const msg =
+        err.response?.data?.msg ||
+        err.response?.data?.message ||
+        "An unexpected error occurred.";
       setErrorMessage(msg);
-      console.error('Error posting answer:', msg);
+      console.error("Error posting answer:", msg);
     }
   };
+  
 
   if (loading) {
     return (
@@ -69,48 +120,39 @@ const handlePostAnswer = async () => {
     );
   }
 
-  if (!question) return <p>Question not found.</p>;
-  console.log('questionId', questionId);
-
   return (
+// rendering the component     
     <div className={styles.container}>
       {/* Question Section */}
-      <div className={styles.questionSection}>
-        <h2 className={styles.sectionTitle}>QUESTION</h2>
-        <h3 className={styles.title}>{question.title}</h3>
-        <p className={styles.body}>{question.body}</p>
-      </div>
-
-      {/* Error Message */}
-      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-
-      {/* Success Message with Navigation Options */}
-      {successMessage && (
-        <div className={styles.successBox}>
-          <p>{successMessage}</p>
-          <div className={styles.navigationOptions}>
-            <Link to="/" className={styles.navButton}>🏠 Home</Link>
-            <Link to="/api/question" className={styles.navButton}>📚 All Questions</Link>
-          </div>
+      {question ? (
+        <div className={styles.questionSection}>
+          <h2 className={styles.sectionTitle}>QUESTION</h2>
+          <h3 className={styles.title}>{question.title}</h3>
+          <p className={styles.body}>{question.description}</p>
         </div>
+      ) : (
+        <p className={styles.error}>Question not found.</p>
       )}
 
       {/* Answers Section */}
-      <hr/>
       <div className={styles.answerSection}>
-          
-        <h3 className={styles.sectionTitle}>Answer From The Community</h3>
+        <hr />
+        <h3 className={styles.sectionTitle}>Answers From The Community</h3>
+        <hr />
         {answers.length === 0 ? (
           <p>No answers yet.</p>
         ) : (
           answers.map((answer) => (
             <div key={answer.answerid} className={styles.answer}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <FaUserCircle size={32} color="#007bff" />
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "1rem" }}
+              >
+                <FaUserCircle size={65} className={styles.icon}  />
                 <div>
                   <p>{answer.answer}</p>
                   <span className={styles.timestamp}>
-                    {new Date(answer.createdate).toLocaleString()} — {answer.username}
+                    {new Date(answer.createdate).toLocaleString()} —{" "}
+                    {answer.username}
                   </span>
                 </div>
               </div>
@@ -118,11 +160,25 @@ const handlePostAnswer = async () => {
           ))
         )}
       </div>
-      <hr/>
 
       {/* Post Answer Section */}
       <div className={styles.postAnswerSection}>
-        <h3 className={styles.sectionTitle}>Post Your Answer</h3>
+        <h3 className={styles.sectionTitle}>Answer The Top Question</h3>
+              {/* Error Message */}
+      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+
+      {/* Success Message */}
+      {successMessage && (
+      <div className={styles.successBox}>
+      <p>{successMessage}</p>
+      <div className={styles.navigationOptions}>
+      <Link to="/home" className={styles.navButton}>
+        Go to Question page
+      </Link>
+
+    </div>
+  </div>
+)}
         <textarea
           className={styles.textarea}
           value={newAnswer}
@@ -136,5 +192,7 @@ const handlePostAnswer = async () => {
     </div>
   );
 };
+
+// making it ready for other components 
 
 export default AnswerPage;

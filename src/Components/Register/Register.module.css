@@ -103,7 +103,7 @@
 }
 
 .registerButton {
-  background-color: #f39228;
+  background-color:  #FF8813;
   color: #003333;
   border: none;
   padding: 14px;
@@ -117,13 +117,21 @@
 }
 
 .registerButton:hover:not(:disabled) {
-  background-color: #F6B170;
   color: #e0f0f0;
 }
 
 .registerButton:disabled {
   cursor: not-allowed;
   opacity: 0.7;
+}
+
+.link{
+  color: #FF8502;
+  text-decoration: none;
+}
+
+.link:hover{
+  color:#FF8502;
 }
 
 .errorMessage,
@@ -145,21 +153,12 @@
 .termsPrivacyLinks {
   margin-top: 1.5rem;
   font-size: 0.85rem;
-  color: #055a60;
 }
 
-.termsPrivacyLinks a {
-  color: #FF8502;
-  text-decoration: underline;
-}
+
 
 a {
-  color: #FF8502;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+  color: #989CA4;
 }
 
 .spinner {

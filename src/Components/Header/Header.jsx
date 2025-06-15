@@ -1,33 +1,32 @@
-
-import { useState } from "react";
-
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Auth/Auth";
 import headImage from "../../assets/evangadi-logo-black.png";
 import styles from "./Header.module.css";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const token = localStorage.getItem("token");
+  const { logout, isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
   const handleLogout = () => {
-    // Add logout logic here
-    localStorage.removeItem("token");
-    window.location.reload();
+    logout();
+    navigate("/signIn"); 
   };
-
   return (
     <header className={styles.outer_container}>
       <div className={styles.inner_container}>
         <div className={styles["logo-container"]}>
-          <Link to="/">
+          <Link to="/home">
             <img src={headImage} alt="Evangadi Logo" />
           </Link>
         </div>
         <div>
+          
           <button
             className={styles["menu-toggle"]}
             onClick={toggleMenu}
@@ -43,7 +42,7 @@ const Header = () => {
           >
             <ul className={styles["nav-list"]}>
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/home">Home</Link>
               </li>
               <li className={styles.divider} />
               <li>
@@ -53,7 +52,7 @@ const Header = () => {
             </ul>
 
             <div>
-              {token ? (
+              {isAuthenticated ? (
                 <button
                   className={styles["button-container"]}
                   onClick={handleLogout}
