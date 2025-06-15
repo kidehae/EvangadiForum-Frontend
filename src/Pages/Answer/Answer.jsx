@@ -1,6 +1,6 @@
 //import statements
 import React, { useEffect, useState } from 'react';//core react features
-import axios from '../../Utility/axios'; // Axios instance with base URL
+import { questionsAPI, answersAPI } from '../../Utility/axios';
 import styles from '../Answer/Answer.module.css'; // CSS Module
 import { useParams, Link } from 'react-router-dom';//react router tools to get URL params and link between routes.
 import { ClipLoader } from 'react-spinners';
@@ -19,8 +19,8 @@ useEffect(() => {
     const fetchData = async () => {
     try {
         const [qRes, aRes] = await Promise.all([
-        axios.get(`/api/question/${questionId}`,{ withCredentials: true }),
-        axios.get(`/api/answer/${questionId}`,{ withCredentials: true })
+        questionsAPI.get(`/api/question/${questionId}`,{ withCredentials: true }),
+        answersAPI.get(`/api/answer/${questionId}`,{ withCredentials: true })
         ]);
         setQuestion(qRes.data);
         setAnswers(aRes.data.answers);

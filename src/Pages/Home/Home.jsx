@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../Components/Auth/Auth";
 import { useNavigate } from "react-router-dom";
-import { getAllQuestions } from "../../Utility/axios";
+import { questionsAPI } from "../../Utility/axios";
 import QuestionList from "../../Components/QuestionList/QuestionList";
 import { Button, Spinner } from "react-bootstrap";
 import styles from "./Home.module.css";
@@ -28,7 +28,7 @@ const Home = () => {
 
   const fetchQuestions = async () => {
     try {
-      const response = await getAllQuestions();
+      const response = await questionsAPI.getAllQuestions();
       console.log("API response:", response.data);
 
       // Since backend returns { questions: [...] }
