@@ -31,6 +31,11 @@ function QuestionPage() {
       setTitle("");
       setDescription("");
       setTag("");
+
+      setTimeout(()=> {
+        navigate("/home")
+      },1500)
+      
     } catch (err) {
       console.error("Error posting question:", err);
       setError(
@@ -71,14 +76,6 @@ function QuestionPage() {
       {success && (
         <div className={styles.successBox}>
           <p>{success}</p>
-          <div className={styles.navigationOptions}>
-            <Link to="/home" className={styles.navButton}>
-              🏠 Home
-            </Link>
-            <Link to="/home" className={styles.navButton}>
-              📚 All Questions
-            </Link>
-          </div>
         </div>
       )}
 

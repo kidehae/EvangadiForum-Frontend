@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../Components/Auth/Auth";
 
 
+
 const AnswerPage = () => {
   const { questionId } = useParams();
   const { user } = useContext(AuthContext);
@@ -17,6 +18,7 @@ const AnswerPage = () => {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,16 +63,20 @@ const AnswerPage = () => {
         questionid: questionId,
         answer: newAnswer,
       });
+      console.log("Backend response for new answer:", res.data);
 
       // Push the real answer returned by backend to the list
-      setAnswers((prev) => [
-        ...prev,
-        { ...res.data, username: user?.username || "You" },
-      ]);
+      setAnswers((prev) => [res.data, ...prev]);
 
       setNewAnswer("");
       setErrorMessage("");
       setSuccessMessage("✅ Your answer was posted successfully!");
+
+      // Clear success message after 3 seconds
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 3000);
+      
     } catch (err) {
       const msg =
         err.response?.data?.msg ||
@@ -92,6 +98,7 @@ const AnswerPage = () => {
   }
 
   return (
+// rendering the component     
     <div className={styles.container}>
       {/* Question Section */}
       {question ? (
@@ -104,27 +111,11 @@ const AnswerPage = () => {
         <p className={styles.error}>Question not found.</p>
       )}
 
-      {/* Error Message */}
-      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-
-      {/* Success Message */}
-      {successMessage && (
-        <div className={styles.successBox}>
-          <p>{successMessage}</p>
-          <div className={styles.navigationOptions}>
-            <Link to="/home" className={styles.navButton}>
-              🏠 Home
-            </Link>
-            <Link to="/home" className={styles.navButton}>
-              📚 All Questions
-            </Link>
-          </div>
-        </div>
-      )}
-
       {/* Answers Section */}
       <div className={styles.answerSection}>
+        <hr />
         <h3 className={styles.sectionTitle}>Answers From The Community</h3>
+        <hr />
         {answers.length === 0 ? (
           <p>No answers yet.</p>
         ) : (
@@ -133,7 +124,7 @@ const AnswerPage = () => {
               <div
                 style={{ display: "flex", alignItems: "center", gap: "1rem" }}
               >
-                <FaUserCircle size={32} color="#007bff" />
+                <FaUserCircle size={65} className={styles.icon}  />
                 <div>
                   <p>{answer.answer}</p>
                   <span className={styles.timestamp}>
@@ -149,7 +140,22 @@ const AnswerPage = () => {
 
       {/* Post Answer Section */}
       <div className={styles.postAnswerSection}>
-        <h3 className={styles.sectionTitle}>Post Your Answer</h3>
+        <h3 className={styles.sectionTitle}>Answer The Top Question</h3>
+              {/* Error Message */}
+      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+
+      {/* Success Message */}
+      {successMessage && (
+      <div className={styles.successBox}>
+      <p>{successMessage}</p>
+      <div className={styles.navigationOptions}>
+      <Link to="/home" className={styles.navButton}>
+        Go to Question page
+      </Link>
+
+    </div>
+  </div>
+)}
         <textarea
           className={styles.textarea}
           value={newAnswer}
@@ -163,5 +169,7 @@ const AnswerPage = () => {
     </div>
   );
 };
+
+// making it ready for other components 
 
 export default AnswerPage;

@@ -8,7 +8,6 @@ const SignIn = () => {
   const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -22,25 +21,17 @@ const SignIn = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    setMessage("");
-    try {
-      const result = await login(formData.email, formData.password);
 
-      if (result.success) {
-        setMessage("Login successful!");
-        setFormData({ email: "", password: "" });
+    const result = await login(formData.email, formData.password);
 
-        navigate("/home"); //Redirect after login
-
-      } else {
-        setError(result.message || "Login failed");
-      }
-    } catch (err) {
-      if (err.response?.data?.msg) setError(err.response.data.msg);
-      else setError("An error occurred. Please try again.");
-    } finally {
-      setLoading(false);
+    if (result.success) {
+      setFormData({ email: "", password: "" });
+      navigate("/home");
+    } else {
+      setError(result.message || "Login failed");
     }
+
+    setLoading(false);
   };
 
   return (
@@ -96,7 +87,6 @@ const SignIn = () => {
             {error}
           </p>
         )}
-        {message && <p className={styles.successMessage}>{message}</p>}
       </form>
 
       <p className={styles.signupLink}>
@@ -108,6 +98,5 @@ const SignIn = () => {
     </div>
   );
 };
-
 
 export default SignIn;
