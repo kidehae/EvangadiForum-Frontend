@@ -1,24 +1,26 @@
+/* SignIn.module.css */
 
-.registerContainer {
+.container {
+  width: auto;
   max-width: 420px;
   margin: 3rem auto;
   padding: 2rem;
-  background-color: #f9f9f9;
+  background-color: #f9f9f9; 
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  color: #446c6c;
+  color: #446c6c; 
   text-align: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.registerTitle {
+.title {
   margin-bottom: 1.5rem;
   font-size: 2rem;
   font-weight: 700;
-  color: #055a60;
+  color: #055a60; 
 }
 
-.registerForm {
+.form {
   width: 100%;
   border-radius: 10px;
 }
@@ -28,43 +30,36 @@
   position: relative;
 }
 
-.formInput input {
+/* For the input inside formInput */
+.formInputInput {
   width: 100%;
   padding: 12px 14px;
-  border: 1.5px solid #98a4a4;
+  border: 1.5px solid #98a4a4; 
   border-radius: 6px;
   box-sizing: border-box;
   font-size: 1rem;
   outline: none;
   color: #898d8d;
-  background-color: #f7fbfb;
+  background-color: #f7fbfb; 
   transition: border-color 0.3s ease;
 }
 
-.formInput input::placeholder {
-  color: #898d8d;
+.formInputInput::placeholder {
+  color: #898d8d; 
 }
 
-.formInput input:focus {
+.formInputInput:focus {
   border-color: #055a60;
   box-shadow: 0 0 5px #68bebf;
 }
 
-.fullName {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 1.2rem;
-}
-
-.fullName .formInput {
-  flex: 1;
-}
-
+/* For password input wrapper */
 .passwordInput {
   position: relative;
 }
 
-.passwordInput input {
+/* The password input itself */
+.passwordInputInput {
   padding-right: 3rem;
   width: 100%;
   padding: 12px 14px;
@@ -78,15 +73,16 @@
   transition: border-color 0.3s ease;
 }
 
-.passwordInput input::placeholder {
+.passwordInputInput::placeholder {
   color: #898d8d;
 }
 
-.passwordInput input:focus {
+.passwordInputInput:focus {
   border-color: #055a60;
   box-shadow: 0 0 5px #68bebf;
 }
 
+/* The eye toggle button */
 .passwordToggle {
   position: absolute;
   right: 12px;
@@ -102,8 +98,9 @@
   justify-content: center;
 }
 
-.registerButton {
-  background-color:  #FF8813;
+/* Submit button */
+.signinButton {
+  background-color: #f39228;
   color: #003333;
   border: none;
   padding: 14px;
@@ -116,51 +113,51 @@
   transition: background-color 0.3s ease;
 }
 
-.registerButton:hover:not(:disabled) {
+.signinButton:hover:not(:disabled) {
+  background-color: #FF8502;
   color: #e0f0f0;
 }
 
-.registerButton:disabled {
+.signinButton:disabled {
   cursor: not-allowed;
   opacity: 0.7;
 }
 
-.link{
-  color: #FF8502;
-  text-decoration: none;
-}
-
-.link:hover{
-  color:#FF8502;
-}
-
+/* Error and success messages */
 .errorMessage,
 .successMessage {
+  text-align: center;
   margin-top: 1rem;
   font-size: 0.9rem;
   font-weight: 600;
-  text-align: center;
 }
 
 .errorMessage {
-  color: #f87171;
+  color: #f87171; 
 }
 
 .successMessage {
-  color: #38b2ac;
+  color: #38b2ac; 
 }
 
-.termsPrivacyLinks {
+/* Signup link */
+.signupLink {
   margin-top: 1.5rem;
   font-size: 0.85rem;
+  color: #055a60;
 }
 
-
-
-a {
-  color: #989CA4;
+.signupLinkA {
+  color: #FF8813;
+  text-decoration: underline;
 }
 
+.signupLinkA:hover {
+  color:#526CF0;
+  text-decoration: none;
+}
+
+/* Spinner for loading */
 .spinner {
   border: 2px solid #b2f5f6;
   border-top: 2px solid #003333;
@@ -178,27 +175,40 @@ a {
   }
 }
 
+/* Responsive */
 @media (max-width: 600px) {
-  .registerContainer {
+  .container {
     width: 100%;
     padding: 10px;
   }
 
-  .registerTitle {
+  .title {
     font-size: 20px;
   }
 
-  .registerButton {
+  .signinButton {
     font-size: 14px;
     padding: 10px;
   }
 
-  .formInput input,
-  .passwordInput input {
+  .formInputInput,
+  .passwordInputInput {
     padding: 10px;
   }
-
-  .fullName {
-    flex-direction: column;
-  }
 }
+
+/* SignIn.module.css */
+
+.container {
+  width: auto;
+  max-width: 420px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #f9f9f9; 
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  color: #003333; 
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+

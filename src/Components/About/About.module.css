@@ -1,45 +1,65 @@
-/* About.module.css */
-
 .aboutContainer {
-    width: 30%;
-    margin: 0 auto;
-  }
-  
-  .about-button {
-    display: block;
-    /* margin: 20px auto; */
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #ff7b00;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .about-button:hover {
-    background-color: #0056b3;
-  }
-  
-  a {
-    color: orangered;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-  }
+  position: relative;
+  padding: 20px 20px;
+  max-width: 600px;
+  margin: 10px auto;
+  text-align: center;
+  color: rgb(234, 225, 225);
+  border-radius: 8px;
+  min-height: auto;
+}
 
-  .aboutContainer h2{
-    font-size: 36px;
-  color: rgb(75, 69, 111);
-  font-weight: 500;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  }
+.aboutContainer h1 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
 
-  .aboutContainer p{
-    font-size: 15px;
-  font-weight: 400;
-  color: rgb(75, 69, 111);
-  margin-bottom: 15px;
+.button {
+  background-color: #f38005;
+  color: black;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 20px auto 0;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color:#ff8401;
+  color: white;
+  
+}
+
+.aboutContainer p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  max-width: 100%;
+  word-wrap: break-word;
+  text-align: justify;
+}
+
+/* Responsive font adjustments */
+@media (max-width: 768px) {
+  .aboutContainer p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    padding: 0 5px;
   }
+}
+
+@media (max-width: 480px) {
+  .aboutContainer p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    padding: 0 2px;
+  }
+}
+
