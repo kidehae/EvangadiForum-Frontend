@@ -1,14 +1,13 @@
-// src/components/HowToUse/HowToUse.jsx
 
 import React from "react";
-import "./HowItWorks.css";
+import styles from "./HowItWorks.module.css";
 
 const HowItWorks = () => {
   return (
-    <div className="howto-container">
-      <h1 className="howto-title">How to Use Evangadi Networks Q&A</h1>
+    <div className={styles.howtoContainer}>
+      <h1 className={styles.howtoTitle}>How to Use Evangadi Networks Q&A</h1>
 
-      <section className="howto-section">
+      <section className={styles.howtoSection}>
         <h2>User Registration</h2>
         <p>
           To join Evangadi Networks Q&A, you need to create an account. Follow
@@ -29,7 +28,7 @@ const HowItWorks = () => {
         </ol>
       </section>
 
-      <section className="howto-section">
+      <section className={styles.howtoSection}>
         <h2>User Login</h2>
         <p>Once you have registered, you can log in to your account:</p>
         <ol>
@@ -39,7 +38,7 @@ const HowItWorks = () => {
         </ol>
       </section>
 
-      <section className="howto-section">
+      <section className={styles.howtoSection}>
         <h2>Asking a Question</h2>
         <p>To ask a new question:</p>
         <ol>
@@ -59,7 +58,7 @@ const HowItWorks = () => {
         </ol>
       </section>
 
-      <section className="howto-section">
+      <section className={styles.howtoSection}>
         <h2>Viewing Questions and Answers</h2>
         <p>To browse and view questions and their answers:</p>
         <ol>
@@ -74,7 +73,7 @@ const HowItWorks = () => {
         </ol>
       </section>
 
-      <section className="howto-section">
+      <section className={styles.howtoSection}>
         <h2>Submitting an Answer</h2>
         <p>To answer a question:</p>
         <ol>
@@ -86,7 +85,7 @@ const HowItWorks = () => {
         </ol>
       </section>
 
-      <section className="howto-section">
+      <section className={styles.howtoSection}>
         <h2>Logging Out</h2>
         <p>To securely log out of your account:</p>
         <ol>
@@ -99,7 +98,7 @@ const HowItWorks = () => {
         </ol>
       </section>
 
-      <section className="howto-section">
+      <section className={styles.howtoSection}>
         <h2>Support and Feedback</h2>
         <p>If you encounter any issues or have suggestions:</p>
         <ul>
