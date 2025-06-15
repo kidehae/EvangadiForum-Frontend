@@ -19,6 +19,15 @@
 
 }
 
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh; 
+  text-align: center;
+}
+
 .title {
   font-weight: bold;
   font-size: 1.4rem;
@@ -137,6 +146,7 @@ text-align: center;
 .icon {
 transition: color 0.3s ease;
 color: #a0aec0; /* default color */
+flex-shrink: 0;
 }
 
 .icon:hover {
