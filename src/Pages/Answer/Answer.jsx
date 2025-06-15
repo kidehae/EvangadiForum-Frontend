@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 //import statements
 import React, { useEffect, useState } from 'react';//core react features
 import { questionsAPI, answersAPI } from '../../Utility/axios';
@@ -8,17 +9,22 @@ import { ClipLoader } from 'react-spinners';
 import { FaUserCircle } from 'react-icons/fa';
 =======
 import React, { useEffect, useState } from "react";
+=======
+import React, { useEffect, useState, useContext } from "react";
+>>>>>>> 800b2e6e7d2212b70147132506f5ec24df7ee4a7
 import styles from "./Answer.module.css";
 import { useParams, Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { FaUserCircle } from "react-icons/fa";
 import { questionsAPI, answersAPI } from "../../Utility/axios";
-import { useContext } from "react";
 import { AuthContext } from "../../Components/Auth/Auth";
 
+<<<<<<< HEAD
 
 >>>>>>> 3a08f3949e4a94343abeed840695b5597c993800
 
+=======
+>>>>>>> 800b2e6e7d2212b70147132506f5ec24df7ee4a7
 const AnswerPage = () => {
   const { questionId } = useParams();
   const { user } = useContext(AuthContext);
@@ -26,9 +32,8 @@ const AnswerPage = () => {
   const [answers, setAnswers] = useState([]);
   const [newAnswer, setNewAnswer] = useState("");
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,9 +50,14 @@ const AnswerPage = () => {
         const msg = error.response?.data?.message || 'An unexpected error occurred while fetching data.';
 =======
       try {
+        setLoading(true);
+        setError(null);
+
+        // Fetch question
         const qRes = await questionsAPI.getQuestionById(questionId);
         setQuestion(qRes.data.question);
 
+<<<<<<< HEAD
         try {
           const aRes = await answersAPI.getAnswersByQuestionId(questionId);
           setAnswers(aRes.data.answers);
@@ -67,6 +77,14 @@ const AnswerPage = () => {
 >>>>>>> 3a08f3949e4a94343abeed840695b5597c993800
         setErrorMessage(msg);
         console.error("Error fetching data:", msg);
+=======
+        // Fetch answers
+        const aRes = await answersAPI.getAnswersByQuestionId(questionId);
+        setAnswers(aRes.data.answers || []);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setError(err.response?.data?.message || "Failed to load data");
+>>>>>>> 800b2e6e7d2212b70147132506f5ec24df7ee4a7
       } finally {
         setLoading(false);
       }
@@ -77,39 +95,35 @@ const AnswerPage = () => {
 
   const handlePostAnswer = async () => {
     if (!newAnswer.trim()) {
-      setErrorMessage("Please provide answer!");
+      setError("Please provide an answer");
       return;
     }
 
     try {
+      setError(null);
       const res = await answersAPI.postAnswer({
         questionid: questionId,
         answer: newAnswer,
       });
-      console.log("Backend response for new answer:", res.data);
 
-      // Push the real answer returned by backend to the list
-      setAnswers((prev) => [res.data, ...prev]);
-
+      setAnswers((prev) => [res.data.answer, ...prev]);
       setNewAnswer("");
-      setErrorMessage("");
-      setSuccessMessage("✅ Your answer was posted successfully!");
-
-      // Clear success message after 3 seconds
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 3000);
-      
+      setSuccess("Answer posted successfully!");
+      setTimeout(() => setSuccess(null), 3000);
     } catch (err) {
-      const msg =
-        err.response?.data?.msg ||
-        err.response?.data?.message ||
-        "An unexpected error occurred.";
-      setErrorMessage(msg);
-      console.error("Error posting answer:", msg);
+      console.error("Post error:", err);
+      setError(err.response?.data?.message || "Failed to post answer");
     }
   };
-  
+
+  const formatDate = (dateString) => {
+    try {
+      const date = new Date(dateString);
+      return isNaN(date.getTime()) ? "Just now" : date.toLocaleString();
+    } catch {
+      return "Just now";
+    }
+  };
 
   if (loading) {
     return (
@@ -121,7 +135,6 @@ const AnswerPage = () => {
   }
 
   return (
-// rendering the component     
     <div className={styles.container}>
       {/* Question Section */}
       {question ? (
@@ -131,7 +144,7 @@ const AnswerPage = () => {
           <p className={styles.body}>{question.description}</p>
         </div>
       ) : (
-        <p className={styles.error}>Question not found.</p>
+        <p className={styles.error}>Question not found</p>
       )}
 
       {/* Answers Section */}
@@ -140,19 +153,19 @@ const AnswerPage = () => {
         <h3 className={styles.sectionTitle}>Answers From The Community</h3>
         <hr />
         {answers.length === 0 ? (
-          <p>No answers yet.</p>
+          <p>No answers yet. Be the first to answer!</p>
         ) : (
           answers.map((answer) => (
             <div key={answer.answerid} className={styles.answer}>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "1rem" }}
               >
-                <FaUserCircle size={65} className={styles.icon}  />
+                <FaUserCircle size={65} className={styles.icon} />
                 <div>
                   <p>{answer.answer}</p>
                   <span className={styles.timestamp}>
-                    {new Date(answer.createdate).toLocaleString()} —{" "}
-                    {answer.username}
+                    {formatDate(answer.createdate)} —{" "}
+                    {answer.username || "Anonymous"}
                   </span>
                 </div>
               </div>
@@ -164,35 +177,28 @@ const AnswerPage = () => {
       {/* Post Answer Section */}
       <div className={styles.postAnswerSection}>
         <h3 className={styles.sectionTitle}>Answer The Top Question</h3>
-              {/* Error Message */}
-      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
 
-      {/* Success Message */}
-      {successMessage && (
-      <div className={styles.successBox}>
-      <p>{successMessage}</p>
-      <div className={styles.navigationOptions}>
-      <Link to="/home" className={styles.navButton}>
-        Go to Question page
-      </Link>
+        {error && <div className={styles.errorBox}>{error}</div>}
+        {success && <div className={styles.successBox}>{success}</div>}
 
-    </div>
-  </div>
-)}
         <textarea
           className={styles.textarea}
           value={newAnswer}
           onChange={(e) => setNewAnswer(e.target.value)}
-          placeholder="Your answer ..."
+          placeholder="Write your answer here..."
+          rows={5}
         />
-        <button onClick={handlePostAnswer} className={styles.postButton}>
+
+        <button
+          onClick={handlePostAnswer}
+          className={styles.postButton}
+          disabled={!newAnswer.trim()}
+        >
           Post Answer
         </button>
       </div>
     </div>
   );
 };
-
-// making it ready for other components 
 
 export default AnswerPage;

@@ -3,10 +3,12 @@ import Router from './Router'
 
 const App = () => {
   return (
-    <div>
-      <Router/>
-    </div>
-  )
-}
+    <> 
+      <div>
+        <Router/>
+      </div>
+    </>
+  );
+};
 
 export default App

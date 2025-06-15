@@ -7,16 +7,14 @@ import styles from './SignIn.module.css';
 import { axiosInstance } from '../../Utility/'; // Import axiosInstance
 
 const SignIn = () => {
-<<<<<<< HEAD
+
   const { login } = useContext(AuthContext); // Assumes AuthContext has a login function
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-=======
   const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
->>>>>>> 3a08f3949e4a94343abeed840695b5597c993800
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -29,7 +27,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-<<<<<<< HEAD
+
     setError('');
     setMessage('');
 
@@ -55,7 +53,7 @@ const SignIn = () => {
       setError(err.response?.data?.msg || 'An error occurred. Please try again.');
     } finally {
       setLoading(false);
-=======
+
     setError("");
 
     const result = await login(formData.email, formData.password);
@@ -65,7 +63,7 @@ const SignIn = () => {
       navigate("/home");
     } else {
       setError(result.message || "Login failed");
->>>>>>> 3a08f3949e4a94343abeed840695b5597c993800
+
     }
 
     setLoading(false);
@@ -116,17 +114,17 @@ const SignIn = () => {
         >
           {loading ? <span className={styles.spinner}></span> : 'Sign In'}
         </button>
-<<<<<<< HEAD
+
         {error && <p className={styles.errorMessage} role="alert">{error}</p>}
         {message && <p className={styles.successMessage}>{message}</p>}
-=======
+
 
         {error && (
           <p className={styles.errorMessage} role="alert">
             {error}
           </p>
         )}
->>>>>>> 3a08f3949e4a94343abeed840695b5597c993800
+
       </form>
       <p className={styles.signupLink}>
         Don't have an account?{' '}
