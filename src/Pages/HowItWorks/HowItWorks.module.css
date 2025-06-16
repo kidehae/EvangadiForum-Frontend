@@ -32,7 +32,7 @@
   transform: translateX(-50%);
   width: 50px;
   height: 4px;
-  background: #007bff;
+  background: #fff200;
   border-radius: 2px;
 }
 
@@ -62,7 +62,7 @@
   content: '🔍'; /* Placeholder icon, replace with real icon if desired */
   position: absolute;
   left: 0;
-  color: #007bff;
+  color: #ffa600;
   font-size: 20px;
 }
 

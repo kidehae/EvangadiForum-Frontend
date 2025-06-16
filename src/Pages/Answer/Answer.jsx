@@ -1,17 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-//import statements
-import React, { useEffect, useState } from 'react';//core react features
-import { questionsAPI, answersAPI } from '../../Utility/axios';
-import styles from '../Answer/Answer.module.css'; // CSS Module
-import { useParams, Link } from 'react-router-dom';//react router tools to get URL params and link between routes.
-import { ClipLoader } from 'react-spinners';
-import { FaUserCircle } from 'react-icons/fa';
-=======
-import React, { useEffect, useState } from "react";
-=======
 import React, { useEffect, useState, useContext } from "react";
->>>>>>> 800b2e6e7d2212b70147132506f5ec24df7ee4a7
 import styles from "./Answer.module.css";
 import { useParams, Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
@@ -19,12 +6,6 @@ import { FaUserCircle } from "react-icons/fa";
 import { questionsAPI, answersAPI } from "../../Utility/axios";
 import { AuthContext } from "../../Components/Auth/Auth";
 
-<<<<<<< HEAD
-
->>>>>>> 3a08f3949e4a94343abeed840695b5597c993800
-
-=======
->>>>>>> 800b2e6e7d2212b70147132506f5ec24df7ee4a7
 const AnswerPage = () => {
   const { questionId } = useParams();
   const { user } = useContext(AuthContext);
@@ -37,18 +18,6 @@ const AnswerPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-<<<<<<< HEAD
-    try {
-        const [qRes, aRes] = await Promise.all([
-        questionsAPI.get(`/api/question/${questionId}`,{ withCredentials: true }),
-        answersAPI.get(`/api/answer/${questionId}`,{ withCredentials: true })
-        ]);
-        setQuestion(qRes.data);
-        setAnswers(aRes.data.answers);
-        setErrorMessage('');
-    } catch (error) {
-        const msg = error.response?.data?.message || 'An unexpected error occurred while fetching data.';
-=======
       try {
         setLoading(true);
         setError(null);
@@ -57,34 +26,12 @@ const AnswerPage = () => {
         const qRes = await questionsAPI.getQuestionById(questionId);
         setQuestion(qRes.data.question);
 
-<<<<<<< HEAD
-        try {
-          const aRes = await answersAPI.getAnswersByQuestionId(questionId);
-          setAnswers(aRes.data.answers);
-        } catch (ansErr) {
-          if (ansErr.response?.status === 404) {
-            setAnswers([]); // No answers
-          } else {
-            throw ansErr;
-          }
-        }
-
-        setErrorMessage("");
-      } catch (error) {
-        const msg =
-          error.response?.data?.message ||
-          "An unexpected error occurred while fetching data.";
->>>>>>> 3a08f3949e4a94343abeed840695b5597c993800
-        setErrorMessage(msg);
-        console.error("Error fetching data:", msg);
-=======
         // Fetch answers
         const aRes = await answersAPI.getAnswersByQuestionId(questionId);
         setAnswers(aRes.data.answers || []);
       } catch (err) {
         console.error("Fetch error:", err);
         setError(err.response?.data?.message || "Failed to load data");
->>>>>>> 800b2e6e7d2212b70147132506f5ec24df7ee4a7
       } finally {
         setLoading(false);
       }
