@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:2112",
+  baseURL: "https://evangadiforum-backend-5.onrender.com/",
   headers: {
     "Content-Type": "application/json",
   },
